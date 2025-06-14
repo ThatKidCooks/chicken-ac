@@ -1,0 +1,7 @@
+name: ChickenAC
+version: '1.0-SNAPSHOT'
+main: site.thatkid.chickenAC.ChickenAC
+commands:
+  anticheatgui:
+    description: Opens the AntiCheat GUI
+api-version: '1.21'

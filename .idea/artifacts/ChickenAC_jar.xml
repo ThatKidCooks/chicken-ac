@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ChickenAC:jar">
+    <output-path>$USER_HOME$/ChickenAC paper test server/thing/plugins</output-path>
+    <root id="archive" name="ChickenAC.jar">
+      <element id="module-output" name="ChickenAC.main" />
+      <element id="file-copy" path="$PROJECT_DIR$/src/main/resources/plugin.yml" />
+    </root>
+  </artifact>
+</component>

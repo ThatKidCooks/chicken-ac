@@ -1,0 +1,14 @@
+name: ChickenAC
+version: '1.0-SNAPSHOT'
+main: site.thatkid.chickenAC.ChickenAC
+commands:
+  anticheatgui:
+    description: Opens the AntiCheat GUI
+permissions:
+  chicken-ac.allowflight:
+    description: Allows flight and disables anti-flight-check.
+    default: false
+  chicken-ac.allowspeed:
+    description: Allows speed and disables anti-speed-check.
+    default: false
+api-version: '1.21'
