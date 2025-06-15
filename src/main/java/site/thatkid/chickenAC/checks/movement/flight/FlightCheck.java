@@ -55,11 +55,14 @@ public class FlightCheck {
         getLogger().warning("[ChickenAC] Flagging " + player.getName() + " for possible flight hacking.");
         // If the player's flag count is greater than 10, ban them.
         if (OverFlag.get(player.getUniqueId().toString()) > 4) {
-            // Calculate the ban expiration date. For example, 30 days from now.
+            // Calculate the ban expiration date.
             Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000); // 30 days ban
             // Ban the player by name with a reason and the expiration date.
             getServer().getBanList(BanList.Type.NAME)
                     .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
+            // Ban the players ip
+            getServer().getBanList(BanList.Type.IP).addBan(player.getAddress().getAddress().getHostAddress(), "Hacking", expiration, "ChickenAC");
+
             // Immediately kick the player.
             player.kickPlayer("You have been banned for hacks.");
         } else {

@@ -40,4 +40,13 @@ public class OverFlag {
     public static Map<String, Integer> getFlags() {
         return flagMap;
     }
+
+    public static void reduce(String key, int i) {
+        key = key.toLowerCase();
+        int current = flagMap.getOrDefault(key, 0);
+        int updated = Math.max(0, current - i); // Prevent negative flag counts
+        flagMap.put(key, updated);
+        getLogger().info("Reduced flag for " + key + " to " + updated);
+    }
+
 }

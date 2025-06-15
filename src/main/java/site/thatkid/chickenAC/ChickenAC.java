@@ -21,7 +21,7 @@ public final class ChickenAC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CheckGUIClickListener(), this);
         getServer().getPluginManager().registerEvents(new MovementGUIClickListener(), this);
         getServer().getPluginManager().registerEvents(new WorldGUIClickListener(), this);
-        new RemoveFlags();
+        new RemoveFlags(this);
     }
 
     @Override

@@ -59,7 +59,7 @@ public class CheckManager {
                     }
                 }
             }
-        }, 0L, 80L);
+        }, 0L, 20L);
     }
 
     public void registerCheck(Class<?> clazz) {
