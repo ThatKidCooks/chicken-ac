@@ -140,6 +140,9 @@ public class ScaffoldCheck implements Listener {
                     // Ban the player by name with a reason and the expiration date.
                     getServer().getBanList(BanList.Type.NAME)
                             .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
+                    // Ban the players ip
+                    getServer().getBanList(BanList.Type.IP)
+                            .addBan(player.getAddress().getAddress().getHostAddress(), "Hacking", expiration, "ChickenAC");
                     // Immediately kick the player.
                     player.kickPlayer("You have been banned for hacks.");
                 } else {

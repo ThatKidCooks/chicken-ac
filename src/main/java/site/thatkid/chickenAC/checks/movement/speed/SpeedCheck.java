@@ -106,6 +106,9 @@ public class SpeedCheck {
                 Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000);
                 getServer().getBanList(BanList.Type.NAME)
                         .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
+                // Ban the players ip
+                getServer().getBanList(BanList.Type.IP)
+                        .addBan(player.getAddress().getAddress().getHostAddress(), "Hacking", expiration, "ChickenAC");
                 player.kickPlayer("You have been banned for hacks.");
             }
         } else {
