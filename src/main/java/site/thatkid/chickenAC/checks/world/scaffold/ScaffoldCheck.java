@@ -94,7 +94,7 @@ public class ScaffoldCheck implements Listener {
                 flag = true;
                 message.append("Distance abnormal (").append(String.format("%.2f", distance)).append(" > ").append(MAX_REACH_DISTANCE).append("). ");
                 // If the player's flag count is greater than 10, ban them.
-                if (OverFlag.get(player.getUniqueId().toString()) > 10) {
+                if (OverFlag.get(player.getUniqueId().toString()) > 4) {
                     // Calculate the ban expiration date. For example, 30 days from now.
                     Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000); // 30 days ban
                     // Ban the player by name with a reason and the expiration date.

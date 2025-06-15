@@ -102,7 +102,7 @@ public class SpeedCheck {
 
             OverFlag.add(playerId);
 
-            if (flags + 1 > 4) {
+            if (flags > 4) {
                 Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000);
                 getServer().getBanList(BanList.Type.NAME)
                         .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
