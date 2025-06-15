@@ -4,4 +4,5 @@ public enum Category {
     MOVEMENT,
     COMBAT,
     PLAYER,
+    WORLD;
 }

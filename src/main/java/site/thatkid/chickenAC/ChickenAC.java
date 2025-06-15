@@ -2,8 +2,10 @@ package site.thatkid.chickenAC;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import site.thatkid.chickenAC.checks.CheckManager;
+import site.thatkid.chickenAC.checks.flag.RemoveFlags;
 import site.thatkid.chickenAC.listeners.CheckGUIClickListener;
 import site.thatkid.chickenAC.listeners.MovementGUIClickListener;
+import site.thatkid.chickenAC.listeners.WorldGUIClickListener;
 
 public final class ChickenAC extends JavaPlugin {
 
@@ -18,7 +20,8 @@ public final class ChickenAC extends JavaPlugin {
         this.getCommand("anticheatgui").setExecutor(new AnticheatGUICommand(checkManager));
         getServer().getPluginManager().registerEvents(new CheckGUIClickListener(), this);
         getServer().getPluginManager().registerEvents(new MovementGUIClickListener(), this);
-
+        getServer().getPluginManager().registerEvents(new WorldGUIClickListener(), this);
+        new RemoveFlags();
     }
 
     @Override

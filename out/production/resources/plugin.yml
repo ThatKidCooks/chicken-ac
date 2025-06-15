@@ -11,4 +11,7 @@ permissions:
   chicken-ac.allowspeed:
     description: Allows speed and disables anti-speed-check.
     default: false
+  chicken-ac.openacpanel:
+    description: Lets you modify active checks.
+    default: op
 api-version: '1.21'

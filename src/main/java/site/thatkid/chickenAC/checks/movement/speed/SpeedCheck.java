@@ -1,15 +1,19 @@
 package site.thatkid.chickenAC.checks.movement.speed;
 
+import org.bukkit.BanList;
 import org.bukkit.entity.Player;
 import org.bukkit.Location;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import site.thatkid.chickenAC.checks.Category;
+import site.thatkid.chickenAC.checks.flag.OverFlag;
 import site.thatkid.chickenAC.checks.SettingsChecks;
 import site.thatkid.chickenAC.checks.movement.MovementChecks;
 
 import static org.bukkit.Bukkit.getLogger;
 import static org.bukkit.Bukkit.getServer;
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,18 +30,16 @@ public class SpeedCheck {
     private final double BASE_SPEED_THRESHOLD = 0.7;
 
     public SpeedCheck() {
-        getLogger().info("Speed check initialized");
+        getLogger().info("[ChickenAC] Speed check initialized");
     }
 
     public void performCheck(Player player) {
         if (player == null) {
-            getLogger().warning("Player is null");
             return;
         }
 
         // If the player is allowed to have high speed via permission, skip further checks.
         if (player.hasPermission("chicken-ac.allowspeed")) {
-            getLogger().info("Player " + player.getName() + " has speed permission.");
             return;
         }
 
@@ -67,22 +69,28 @@ public class SpeedCheck {
             double deltaZ = currentLocation.getZ() - previousLocation.getZ();
             double horizontalDistance = Math.sqrt(deltaX * deltaX + deltaZ * deltaZ);
 
-            // Debug logging
-            getLogger().info("Player " + player.getName() + " moved horizontally: " + horizontalDistance
-                    + " (Effective threshold: " + effectiveThreshold + ")");
-
             // If the distance exceeds our threshold, flag the player.
             if (horizontalDistance > effectiveThreshold) {
                 flagPlayerForSpeed(player, horizontalDistance, effectiveThreshold);
                 return;
             }
         }
-
-        getLogger().info("Player " + player.getName() + " is moving normally.");
     }
 
     private void flagPlayerForSpeed(Player player, double speed, double threshold) {
-        getLogger().warning("Flagging " + player.getName() + " for possible speed hacking. Speed: "
+        getLogger().warning("[ChickenAC] Flagging " + player.getName() + " for possible speed hacking. Speed: "
                 + speed + " (Threshold: " + threshold + ")");
+        // If the player's flag count is greater than 10, ban them.
+        if (OverFlag.get(player.getUniqueId().toString()) > 4) {
+            // Calculate the ban expiration date. For example, 30 days from now.
+            Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000); // 30 days ban
+            // Ban the player by name with a reason and the expiration date.
+            getServer().getBanList(BanList.Type.NAME)
+                    .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
+            // Immediately kick the player.
+            player.kickPlayer("You have been banned for hacks.");
+        } else {
+            OverFlag.add(player.getUniqueId().toString());
+        }
     }
 }

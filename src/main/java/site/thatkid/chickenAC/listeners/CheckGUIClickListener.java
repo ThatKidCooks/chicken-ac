@@ -1,13 +1,16 @@
 package site.thatkid.chickenAC.listeners;
 
+import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.entity.Player;
 import site.thatkid.chickenAC.checks.Category;
 import site.thatkid.chickenAC.checks.movement.MovementScreen;
+import site.thatkid.chickenAC.checks.player.PlayerScreen;
+import site.thatkid.chickenAC.checks.world.WorldScreen;
 
 public class CheckGUIClickListener implements Listener {
 
@@ -18,13 +21,12 @@ public class CheckGUIClickListener implements Listener {
             return;
         }
 
-        Inventory clickedInventory = event.getView().getTopInventory();
-        // Check that the inventory has the title "Anti-Cheat Checks" (adjust if necessary).
+        // Only work with our custom GUI inventory
         if (!event.getView().getTitle().equals("Anti-Cheat Checks")) {
             return;
         }
 
-        // Prevent taking items out of our custom GUI
+        // Prevent default item movement
         event.setCancelled(true);
 
         ItemStack clickedItem = event.getCurrentItem();
@@ -33,15 +35,21 @@ public class CheckGUIClickListener implements Listener {
         }
 
         String itemName = clickedItem.getItemMeta().getDisplayName();
+        String strippedName = ChatColor.stripColor(itemName).trim();
 
-        // Check if the clicked item is the "Movement" category.
-        if (itemName.equalsIgnoreCase(Category.MOVEMENT.name())) {
-            // Open the MovementScreen GUI. Make sure you pass necessary parameters if needed.
+        System.out.println("DEBUG: Clicked item name (stripped): " + strippedName);
+
+        Player player = (Player) event.getWhoClicked();
+        // Check the category and open the appropriate screen
+        if (strippedName.equalsIgnoreCase(Category.MOVEMENT.name())) {
             MovementScreen movementScreen = new MovementScreen();
-            Player player = (Player) event.getWhoClicked();
             player.openInventory(movementScreen.getInventory());
+        } else if (strippedName.equalsIgnoreCase(Category.WORLD.name())) {
+            WorldScreen worldScreen = new WorldScreen();
+            player.openInventory(worldScreen.getInventory());
+        } else if (strippedName.equalsIgnoreCase(Category.PLAYER.name())) {
+            PlayerScreen playerScreen = new PlayerScreen();
+            player.openInventory(playerScreen.getInventory());
         }
-        
-        // Add else if for other categories if needed.
     }
 }
