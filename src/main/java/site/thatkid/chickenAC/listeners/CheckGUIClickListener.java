@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import site.thatkid.chickenAC.checks.Category;
+import site.thatkid.chickenAC.checks.combat.CombatScreen;
 import site.thatkid.chickenAC.checks.movement.MovementScreen;
 import site.thatkid.chickenAC.checks.player.PlayerScreen;
 import site.thatkid.chickenAC.checks.world.WorldScreen;
@@ -50,6 +51,9 @@ public class CheckGUIClickListener implements Listener {
         } else if (strippedName.equalsIgnoreCase(Category.PLAYER.name())) {
             PlayerScreen playerScreen = new PlayerScreen();
             player.openInventory(playerScreen.getInventory());
+        } else if (strippedName.equalsIgnoreCase(Category.COMBAT.name())) {
+            CombatScreen combatScreen = new CombatScreen();
+            player.openInventory(combatScreen.getInventory());
         }
     }
 }

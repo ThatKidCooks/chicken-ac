@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import site.thatkid.chickenAC.checks.CheckManager;
 import site.thatkid.chickenAC.checks.flag.RemoveFlags;
 import site.thatkid.chickenAC.listeners.CheckGUIClickListener;
+import site.thatkid.chickenAC.listeners.CombatGUIClickListener;
 import site.thatkid.chickenAC.listeners.MovementGUIClickListener;
 import site.thatkid.chickenAC.listeners.WorldGUIClickListener;
 
@@ -21,6 +22,7 @@ public final class ChickenAC extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CheckGUIClickListener(), this);
         getServer().getPluginManager().registerEvents(new MovementGUIClickListener(), this);
         getServer().getPluginManager().registerEvents(new WorldGUIClickListener(), this);
+        getServer().getPluginManager().registerEvents(new CombatGUIClickListener(), this);
         new RemoveFlags(this);
     }
 

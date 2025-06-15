@@ -2,6 +2,8 @@ package site.thatkid.chickenAC.checks;
 
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import site.thatkid.chickenAC.checks.combat.CombatChecks;
+import site.thatkid.chickenAC.checks.combat.killaura.KillAuraCheck;
 import site.thatkid.chickenAC.checks.flag.RemoveFlags;
 import site.thatkid.chickenAC.checks.movement.MovementChecks;
 import site.thatkid.chickenAC.checks.movement.flight.FlightCheck;
@@ -24,11 +26,11 @@ public class CheckManager {
     // Reference to the movement check enum (shows enabled status)
     private MovementChecks flightCheckEnum = MovementChecks.FLIGHT;
     private MovementChecks speedCheckEnum = MovementChecks.SPEED;
-    private PlayerChecks timerCheckEnum = PlayerChecks.TIMER;
     // Store a single instance of FlightCheck
     private FlightCheck flightCheckInstance;
     private SpeedCheck speedCheckInstance;
     private ScaffoldCheck scaffoldCheckInstance;
+    private KillAuraCheck killAuraCheckInstance;
 
     public CheckManager(Plugin plugin) {
         this.plugin = plugin;
@@ -39,11 +41,13 @@ public class CheckManager {
         registerCheck(FlightCheck.class);
         registerCheck(SpeedCheck.class);
         registerCheck(ScaffoldCheck.class);
+        registerCheck(KillAuraCheck.class);
 
         // Create check instances with the plugin instance
         flightCheckInstance = new FlightCheck();
         speedCheckInstance = new SpeedCheck();
         scaffoldCheckInstance = new ScaffoldCheck(plugin);
+        killAuraCheckInstance = new KillAuraCheck(plugin);
 
         // Schedule a repeating task that runs the check logic every 80 ticks
         getServer().getScheduler().runTaskTimer(plugin, new Runnable() {

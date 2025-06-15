@@ -31,7 +31,7 @@ public class ScaffoldCheck implements Listener {
 
     // Threshold for head rotation speed.
     // For example, 0.6 means a player rotating faster than 0.6 degree per millisecond is flagged.
-    private static final double MAX_HEAD_ROTATION_SPEED = 0.6;      // degrees per millisecond
+    public static final double MAX_HEAD_ROTATION_SPEED = 0.6;      // degrees per millisecond
 
     private final Plugin plugin;
 
@@ -93,18 +93,6 @@ public class ScaffoldCheck implements Listener {
             if (distance > MAX_REACH_DISTANCE) {
                 flag = true;
                 message.append("Distance abnormal (").append(String.format("%.2f", distance)).append(" > ").append(MAX_REACH_DISTANCE).append("). ");
-                // If the player's flag count is greater than 10, ban them.
-                if (OverFlag.get(player.getUniqueId().toString()) > 4) {
-                    // Calculate the ban expiration date. For example, 30 days from now.
-                    Date expiration = new Date(System.currentTimeMillis() + 30L * 24 * 60 * 60 * 1000); // 30 days ban
-                    // Ban the player by name with a reason and the expiration date.
-                    getServer().getBanList(BanList.Type.NAME)
-                            .addBan(player.getName(), "Hacking", expiration, "ChickenAC");
-                    // Immediately kick the player.
-                    player.kickPlayer("You have been banned for hacks.");
-                } else {
-                    OverFlag.add(player.getUniqueId().toString());
-                }
             }
             if (angle > MAX_ALLOWED_ANGLE_DEGREES) {
                 flag = true;
